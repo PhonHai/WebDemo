@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8"/>
+            </head>
+<body>
+
+CheckBox：
+<input type="checkbox" id="checkboxRight" value="对" onclick="myFunctionCheckbox()"/>
+<input type="checkbox" id="checkboxWrong" value="错" onclick="myFunctionCheckbox()"/>
+
+<hr/>
+
+<button type="button" onclick="functionChangeText()">重置数据</button>
+
+<button type="button" onclick="resetText(1, 3)">alert不可取消弹窗</button>
+
+<button type="button" onclick="confirmClick()">Dialog可取消弹窗</button>
+
+<button type="button" onclick="promptClick()">可输入可取消弹窗</button>
+<hr/>
+<form action="Main.html" onsubmit="return validate_form(this)" method="post">
+    Email: <input type="text" name="email" size="30">
+    <input type="submit" value="Submit"> 
+    </form>
+
+<hr/>
+<button type="button" onclick="timerClock()">启动计时器</button>
+
+ <p id = "timerclockTask">计时：</p>
+ <hr/>
+<p id = "savePersonData">存储用户名字，密码和日期</p>
+
+<!-- <form action="myScript.js">
+    用户名: <input type="text" name="name" id="name"><br>
+    密码: <input type="text" name="password" id="password"><br>        
+</form> -->
+用户名: <input type="text" name="name" id="name"><br>
+密码: <input type="text" name="password" id="password"><br>        
+<button type="button" onclick="saveUserDataToCookie()">保存用户数据</button>
+<button type="button" onclick="getUserDataFromCookie()">获取cookie用户数据</button>
+<p id="userdata">保存的用户数据是：</p>
+
+
+<!-- <script src="./myScript.js"> </script>-->
+<script>
+   
+
+function myFunctionCheckbox(){
+    alert("$(#checkboxRight').val")
+}
+   
+   
+/**
+ * @param {*名字} name 
+ * @param {*密码} value 
+ * @param {*登录日期} expriedays 
+ */
+function saveUserDataToCookie(name, value, expiredays) {
+    name = document.getElementById("name").value
+    value = document.getElementById("password").value
+
+    var today = new Date()
+    var year = today.getFullYear()
+    var month = today.getMonth() + 1
+    var day = today.getDate()
+
+    var hh=today.getHours();//通过日期对象的getHours方法返回小时   
+    var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
+    var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒   
+
+    expiredays = year + "-"+month + "-" + day + " " + hh + ":" + mm + ":" + ss
+
+    today.setTime(today.getTime() + 60 * 60 * 1000);
+
+    var a = name + "=" + escape(name) + ";expires=" + today.toGMTString();
+    document.cookie = a;
+}
+
+function getUserDataFromCookie() {
+    if(document.cookie.length > 0) {
+        // var users = document.cookie.split("=")
+        var content = document.getElementById("userdata").innerHTML
+        var myCookie = document.cookie;
+        document.getElementById("userdata").innerHTML = content +  myCookie   
+        escape
+    } else {
+        return "";
+    }
+}    
+</script>
+<script src="myScript.js"></script>
+</body>
+</html>

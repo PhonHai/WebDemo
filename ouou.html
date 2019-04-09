@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="saveUserDataToCookie()">111</button>
+<script>
+    function saveUserDataToCookie() {
+        // name = document.getElementById("name").value
+        // value = document.getElementById("password").value
+        //
+        // var today = new Date()
+        // var year = today.getFullYear()
+        // var month = today.getMonth() + 1
+        // var day = today.getDate()
+        //
+        // var hh=today.getHours();//通过日期对象的getHours方法返回小时
+        // var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟
+        // var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒
+        //
+        // expiredays = year + "-"+month + "-" + day + " " + hh + ":" + mm + ":" + ss
+        //
+        // today.setTime(today.getTime() + 60 * 60 * 1000);
+
+        // var a = name + "=" + escape(name) + ";expires=" + today.toGMTString();
+        // document.cookie = a;
+
+        // document.cookie = "name=1";
+        // console.log(document.cookie)
+        document.cookie = "name=1";
+        console.log(document.cookie);
+    }
+</script>
+</body>
+</html>
