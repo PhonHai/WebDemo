@@ -1,37 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- 标签描述了基本的链接地址/链接目标，该标签作为HTML文档中所有的链接标签的默认链接: -->
+    <base href="http://www.runoob.com/images/" target="_blank">
+    <!-- 标签定义了文档与外部资源之间的关系,标签通常用于链接到样式表: -->
+    <!-- <link rel="stylesheet" type="text/css" href="mystyle.css"> -->
+    <style type="text/css"></style><!-- 定义了HTML文档的样式文件引用地址 -->
+    <meta name="keywords" content="HTML,CSS,JQuery"><!-- 为搜索引擎定义关键词: -->
+    <meta name="author" content="haiphon"><!-- 定义网页作者: -->
+    <meta http-equiv="refresh" content="30"><!-- 每30秒钟刷新当前页面: -->
+
+    <title>JQuery</title>
 </head>
+
 <body>
-<button onclick="saveUserDataToCookie()">111</button>
-<script>
-    function saveUserDataToCookie() {
-        // name = document.getElementById("name").value
-        // value = document.getElementById("password").value
-        //
-        // var today = new Date()
-        // var year = today.getFullYear()
-        // var month = today.getMonth() + 1
-        // var day = today.getDate()
-        //
-        // var hh=today.getHours();//通过日期对象的getHours方法返回小时
-        // var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟
-        // var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒
-        //
-        // expiredays = year + "-"+month + "-" + day + " " + hh + ":" + mm + ":" + ss
-        //
-        // today.setTime(today.getTime() + 60 * 60 * 1000);
+    <h1 style="text-align:center;">JQuery标题</h1>
+    <button onclick="saveUserDataToCookie()">JQuery</button>
+    <hr />
+    <div class="pb">点击下面的按钮屏蔽我</div><button id="pingbi">屏蔽</button><hr />
+    <div class="pb">点击下面的按钮屏蔽我</div><button id="pingbi2">屏蔽所有class对应的控件</button><hr />
+    <button id="pingbi3">屏蔽第一个列表的第一个元素，2s内执行隐藏或展示完毕并且回调</button>
+    <button id="pingbi4">屏蔽第每个列表的第一个元素，回调函数会执行2次</button>
+    <p>List1:</p>
+    <ul>
+        <li>Conffee</li>
+        <li>Milk</li>
+        <li>Tea</li>
+    </ul>
+    <p>List2:</p>
+    <ul>
+        <li>咸鱼</li>
+        <li>狗蛋</li>
+        <li>二瓜</li>
+    </ul>
+    <hr/>
+    <button id="dblickme">双击</button>
+    <hr/>
+    <button id="mouseCome">来我这里</button>
+    <button id="mouseLeave">别走</button>
+    <hr/>
+    获取焦点后颜色改变<br>
+    Name: <input type="text" id="fullName" name="fullName"><br>
+    Email:<input type="text" id="email" name="email">
+    <hr />
+    <h3 >JQuery渐入渐出</h3>
+    <button id="fade1">点击该按钮渐渐消失</button></br>
+    <button id="fade2">点击该按钮渐渐出现</button></br>
+    <button id="fade3">点击出现或消失</button></br>
+    <button id="showButton" style="background-color:blueviolet">演示按钮</button>
+    <div id="div1" style="width:80px;height:80px;display:none;background-color:red;"></div>
+    <div id="div2" style="width:80px;height:80px;display:none;background-color:green;"></div><br>
 
-        // var a = name + "=" + escape(name) + ";expires=" + today.toGMTString();
-        // document.cookie = a;
+    <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        function saveUserDataToCookie() {
+            document.cookie = "name=1";
+            console.log(document.cookie);
+        }
 
-        // document.cookie = "name=1";
-        // console.log(document.cookie)
-        document.cookie = "name=1";
-        console.log(document.cookie);
-    }
-</script>
+        // 单纯的隐藏
+        $(document).ready(function () {
+            $("#pingbi").click(function () {
+                $("div").hide();
+            });
+        });
+
+        // 2s内隐藏完毕
+        $(document).ready(function () {
+            $("#pingbi2").click(function () {
+                $(".pb").hide(2000);
+            })
+        })
+
+        // 2s内执行隐藏或展示完毕并且回调
+        $(document).ready(function() {
+            $("#pingbi3").click(function() {
+                // $("ul li:first").hide(2000);
+                $("ul li:first").toggle(2000,function() {
+                    alert("用了一秒显示或隐藏")
+                })
+            });
+        });
+
+        // 同时隐藏n个控件，所以回调函数会执行n次。
+        $(document).ready(function() {
+            $("#pingbi4").click(function() {
+                // $("ul li:first-child").hide(fast);
+                $("ul li:first-child").toggle(1000,function() {
+                    alert(".$(selector)选中的元素的个数为n个，则callback函数会执行n次,这里的n是2，所以两个alert")
+                })
+            });
+        });
+
+        // 双击监听
+        $(document).ready(function(){
+            $("#dblickme").dblclick(function() {
+                alert("双击了哦")
+            })
+        })
+
+        // 鼠标移动到当前控件监听
+        $(document).ready(function(){
+            $("#mouseCome").mouseenter(function() {
+                alert("鼠标划过我头上 没有留下痕迹")
+            })
+        })
+
+        // 鼠标离开当前控件监听
+        $(document).ready(function() {
+            $("#mouseLeave").mouseleave(function() {
+                alert("轻轻的你走了 正如你光着头来")
+            })
+        })
+
+        // 获得焦点监听
+        $(document).ready(function(){
+            $("#fullName").focus(function(){
+                $(this).css("background-color", "#cccccc");
+            });
+            $("#fullName").blur(function(){
+                $(this).css("background-color", "#ffffff");
+            });
+
+            $("#email").focus(function(){
+                $(this).css("background-color", "#fbfbaa");
+            });
+            $("#email").blur(function(){
+                $(this).css("background-color", "#ffffff");
+            });
+        })
+
+        // 渐出渐入
+        $(document).ready(function() {
+            $("#fade1").click(function(){
+                $("#showButton").fadeOut();
+            })
+            $("#fade2").click(function(){
+                $("#div1").fadeIn(3000);
+            })
+            $("#fade3").click(function(){
+                $("#div2").fadeToggle(2000);
+            })
+        })
+
+        // 监听键盘事件，打印到console，F12浏览器可以看见
+        $(document).ready(function() {
+            $(window).keypress(function(event) {
+                console.log(event)
+                // event.which是获取ASCII码，前面的寒素是将ASCII码转成字符，空白键和Enter输出均为空白。
+                console.log(String.fromCharCode(event.which));
+                // 从event对象中key属性获取字符，但是Enter的key值为“Enter"，空白键还是空白" ";"
+                console.log(event.key)
+            });
+        });
+        
+    </script>
 </body>
+
 </html>
