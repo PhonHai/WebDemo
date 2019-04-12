@@ -13,13 +13,24 @@
             padding: 5px;
             text-align: center;
             background-color: blueviolet;
-            border: solid 1px #cc33cc
+            border: solid 1px #cc33cc;
+            width: 200px
         }
-        
-        #panel {
+
+        .testStyle {
+            background-color: rgb(59, 40, 165);
+            font-size: x-large;
+            font-weight: bold;
+            text-align: center;
+        }
+        .testStyle1{
             padding: 50px;
-            /* display: none; */
         }
+
+        /* #panel {
+            padding: 50px;
+            /* display: none; 
+        } */
     </style>
     <!-- 定义了HTML文档的样式文件引用地址 -->
     <meta name="keywords" content="HTML,CSS,JQuery">
@@ -54,12 +65,12 @@
         <li>狗蛋</li>
         <li>二瓜</li>
     </ul>
-    <hr/>
+    <hr />
     <button id="dblickme">双击</button>
-    <hr/>
+    <hr />
     <button id="mouseCome">来我这里</button>
     <button id="mouseLeave">别走</button>
-    <hr/> 获取焦点后颜色改变
+    <hr /> 获取焦点后颜色改变
     <br> Name: <input type="text" id="fullName" name="fullName"><br> Email:
     <input type="text" id="email" name="email">
     <hr />
@@ -72,115 +83,187 @@
     <div id="div2" style="width:80px;height:80px;display:none;background-color:green;"></div><br>
     <div id="flip">点我，显示或隐藏面板。</div>
     <div id="panel">Hello world!</div>
+    <hr />
+    <h2>JQuery 动画</h2>
+    <button id="startAnimate">点击我开始动画</button>
+    <p>默认情况下，所有HTML元素有一个静态的位置，是不可以移动的。如果需要改变为，我需要将元素的position属性
+        设置为relative，fixed或absolute!</p>
+    <div id="animateDiv" style="background-color:brown; width: 100px; height: 100px; position: relative;"></div>
+    <hr />
+    <h2>JQuery添加元素</h2>
+    <button id="addParamButtonBefore">往前面面嵌入文本</button>
+    <button id="addParamButtonAfter">往后面嵌入文本</button>
+    <button id="addParamButton2">后面嵌入列表项</button>
+    <button id="beforeAdd">外面追加到前面</button>
+    <button id="afterAdd">外面追加到后面</button>
+    <p id="addParam">这是初始文本</p>
+    <ol id="olAddParam">
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+    </ol><hr/>
+    <h2>JQuery为元素添加class</h2>
+    <button id="addCss">点击我给元素添加class</button>
+    <div id="hahaha">哈哈哈哈</div>
 
     <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
     <script>
+        // JQuery动画
+        $(document).ready(function () {
+            $("#startAnimate").click(function () {
+                $("#animateDiv").animate({
+                    left: '250px'
+                });
+            })
+        })
+
+        // 给元素添加css
+        $(document).ready(function(){
+            $("#addCss").click(function(){
+                $("#hahaha").addClass("testStyle");
+                $("#hahaha").addClass("testStyle1");
+            })
+        })
+
+        // 前后门嵌入元素
+        $(document).ready(function(){
+            $("#addParamButtonBefore").click(function(){
+                $("#addParam").prepend("<b>前面追加文本")
+            })
+            $("#addParamButtonAfter").click(function(){
+                $("#addParam").append("<b>后面追加文本")
+            })
+            $("#addParamButton2").click(function(){
+                $("#olAddParam").append("<li>追加列表项</li>")
+            })
+        })
+        // 前后面追加加入元素
+        $(document).ready(function(){
+            $("beforeAdd").click(function(){
+                $("#addParam").before("<i>嘿嘿</i>");
+            })
+            $("afterAdd").click(function(){
+                var text2 = $("<i></i>").text("love ");
+                $("addParam").after(text2);
+                // $("#addParam").after('<span class="s2">s2</span>');
+            })
+        })
+
+        // 保存cookie
         function saveUserDataToCookie() {
             document.cookie = "name=1";
             console.log(document.cookie);
         }
 
         // 单纯的隐藏
-        $(document).ready(function() {
-            $("#pingbi").click(function() {
+        $(document).ready(function () {
+            $("#pingbi").click(function () {
                 $("div").hide();
             });
         });
 
         // 2s内隐藏完毕
-        $(document).ready(function() {
-            $("#pingbi2").click(function() {
+        $(document).ready(function () {
+            $("#pingbi2").click(function () {
                 $(".pb").hide(2000);
             })
         })
 
         // 2s内执行隐藏或展示完毕并且回调
-        $(document).ready(function() {
-            $("#pingbi3").click(function() {
+        $(document).ready(function () {
+            $("#pingbi3").click(function () {
                 // $("ul li:first").hide(2000);
-                $("ul li:first").toggle(2000, function() {
+                $("ul li:first").toggle(2000, function () {
                     alert("用了一秒显示或隐藏")
                 })
             });
         });
 
         // 同时隐藏n个控件，所以回调函数会执行n次。
-        $(document).ready(function() {
-            $("#pingbi4").click(function() {
+        $(document).ready(function () {
+            $("#pingbi4").click(function () {
                 // $("ul li:first-child").hide(fast);
-                $("ul li:first-child").toggle(1000, function() {
+                $("ul li:first-child").toggle(1000, function () {
                     alert(".$(selector)选中的元素的个数为n个，则callback函数会执行n次,这里的n是2，所以两个alert")
                 })
             });
         });
 
         // 双击监听
-        $(document).ready(function() {
-            $("#dblickme").dblclick(function() {
+        $(document).ready(function () {
+            $("#dblickme").dblclick(function () {
                 alert("双击了哦")
             })
         })
 
         // 鼠标移动到当前控件监听
-        $(document).ready(function() {
-            $("#mouseCome").mouseenter(function() {
+        $(document).ready(function () {
+            $("#mouseCome").mouseenter(function () {
                 alert("鼠标划过我头上 没有留下痕迹")
             })
         })
 
         // 鼠标离开当前控件监听
-        $(document).ready(function() {
-            $("#mouseLeave").mouseleave(function() {
+        $(document).ready(function () {
+            $("#mouseLeave").mouseleave(function () {
                 alert("轻轻的你走了 正如你光着头来")
             })
         })
 
         // 获得焦点监听
-        $(document).ready(function() {
-            $("#fullName").focus(function() {
+        $(document).ready(function () {
+            $("#fullName").focus(function () {
                 $(this).css("background-color", "#cccccc");
             });
-            $("#fullName").blur(function() {
+            $("#fullName").blur(function () {
                 $(this).css("background-color", "#ffffff");
             });
 
-            $("#email").focus(function() {
+            $("#email").focus(function () {
                 $(this).css("background-color", "#fbfbaa");
             });
-            $("#email").blur(function() {
+            $("#email").blur(function () {
                 $(this).css("background-color", "#ffffff");
             });
         })
 
         // 渐出渐入
-        $(document).ready(function() {
-            $("#fade1").click(function() {
+        $(document).ready(function () {
+            $("#fade1").click(function () {
                 $("#showButton").fadeOut();
             })
-            $("#fade2").click(function() {
+            $("#fade2").click(function () {
                 $("#div1").fadeIn(3000);
             })
-            $("#fade3").click(function() {
+            $("#fade3").click(function () {
                 $("#div2").fadeToggle(2000);
             })
         })
 
         // 滑动显示或隐藏
-        $(document).ready(function() {
-            $("#flip").click(function() {
+        $(document).ready(function () {
+            $("#flip").click(function () {
                 $("#panel").slideToggle("slow");
             });
         });
         // 监听键盘事件，打印到console，F12浏览器可以看见
-        $(document).ready(function() {
-            $(window).keypress(function(event) {
+        $(document).ready(function () {
+            $(window).keypress(function (event) {
                 console.log(event)
-                    // event.which是获取ASCII码，前面的寒素是将ASCII码转成字符，空白键和Enter输出均为空白。
+                // event.which是获取ASCII码，前面的寒素是将ASCII码转成字符，空白键和Enter输出均为空白。
                 console.log(String.fromCharCode(event.which));
                 // 从event对象中key属性获取字符，但是Enter的key值为“Enter"，空白键还是空白" ";"
                 console.log(event.key)
             });
         });
+
+
+        var jq = $.noConflict;
+        jq(document).ready(function(){
+            jq("button").click(function(){
+                jq("p").text = ("jQuery 仍然在工作!")
+            })
+        })
     </script>
 </body>
 
